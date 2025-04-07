@@ -1,32 +1,30 @@
-
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Universo AGV</title>
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <header class="header">
-    <img src="perfil.jpg" alt="Perfil" class="profile-img" />
-    <div>
-      <h1>UniversoAGV</h1>
-      <p class="status">online</p>
+  <!-- Cabeçalho estilo WhatsApp -->
+  <div id="chat-header">
+    <img src="perfil.jpg" alt="Universo AGV" class="profile-pic">
+    <div class="chat-info">
+      <div class="chat-name">UniversoAGV</div>
+      <div class="chat-status">online</div>
     </div>
-  </header>
+  </div>
 
-  <main>
-    <div id="chat-box" class="chat-box"></div>
-  </main>
+  <!-- Caixa de mensagens -->
+  <div id="chat-box"></div>
 
+  <!-- Botões -->
+  <div id="chat-buttons"></div>
+
+  <!-- Som de notificação -->
   <audio id="notif-sound" src="notify.mp3" preload="auto"></audio>
 
-  <script src="script.js" defer></script>
-  <script>
-    window.addEventListener('DOMContentLoaded', () => {
-      sendMessage("Olá! Como posso te ajudar hoje?");
-    });
-  </script>
+  <script src="script.js"></script>
 </body>
 </html>
