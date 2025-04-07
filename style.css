@@ -1,11 +1,12 @@
 body {
   font-family: Arial, sans-serif;
+  background: #ece5dd;
   margin: 0;
-  background-color: #e5ddd5;
+  padding: 0;
 }
 
 #chat-header {
-  background-color: #075e54;
+  background: #075e54;
   color: white;
   padding: 10px;
   display: flex;
@@ -26,54 +27,54 @@ body {
 
 .chat-name {
   font-weight: bold;
-  font-size: 16px;
 }
 
 .chat-status {
   font-size: 12px;
-  color: #cfd8dc;
+  color: #d0f0c0;
 }
 
 #chat-box {
-  padding: 10px;
-  height: 400px;
+  height: 70vh;
   overflow-y: auto;
-  background-color: #f5f5f5;
+  padding: 10px;
+  background: #f0f0f0;
 }
 
 .message {
-  background-color: #ffffff;
+  max-width: 75%;
+  margin: 5px 0;
   padding: 10px;
   border-radius: 8px;
-  margin-bottom: 10px;
-  max-width: 80%;
-  clear: both;
+  background: #ffffff;
+  align-self: flex-start;
 }
 
 .user-message {
-  background-color: #dcf8c6;
-  margin-left: auto;
+  background: #dcf8c6;
+  align-self: flex-end;
   text-align: right;
 }
 
 #chat-buttons {
-  padding: 10px;
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  background-color: #f0f0f0;
+  padding: 10px;
+  background: #fff;
 }
 
-button {
+#chat-buttons button {
+  margin: 5px 0;
   padding: 10px;
-  background-color: #25d366;
+  background: #25d366;
   color: white;
   border: none;
   border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-weight: bold;
+  transition: background 0.3s;
 }
 
-button:hover {
-  background-color: #1ebe5d;
+#chat-buttons button:hover {
+  background: #128c7e;
 }
