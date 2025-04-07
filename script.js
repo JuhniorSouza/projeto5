@@ -34,6 +34,10 @@ function sendMessage(text, isUser = false) {
     document.getElementById('button-container').appendChild(button);
   }
   
+  function clearButtons() {
+    document.getElementById('button-container').innerHTML = '';
+  }
+  
   function showMainOptions() {
     clearButtons();
     sendMessage('Olá! 👋 Bem-vindo à Universo AGV. Como podemos te ajudar hoje?');
@@ -54,4 +58,20 @@ function sendMessage(text, isUser = false) {
     sendMessage('💸 A cada amigo que fechar com a AGV através do seu link, você recebe 25% de cashback na mensalidade ou adesão!');
     createButton('🔙 Voltar', showMainOptions);
   }
+  
+  function showFormOptions() {
+    clearButtons();
+    sendMessage('📋 Preencha o formulário abaixo ou envie os dados diretamente para o nosso atendimento via WhatsApp:');
+    window.open("https://wa.me/5511945731548?text=Olá!%20Gostaria%20de%20fazer%20uma%20simulação%20de%20proteção%20veicular.", "_blank");
+    createButton('🔙 Voltar', showMainOptions);
+  }
+  
+  function showInfoOptions() {
+    clearButtons();
+    sendMessage('A Universo AGV oferece planos acessíveis com ampla cobertura e benefícios exclusivos para seus associados. Nossa atuação é pautada pela transparência, compromisso e agilidade no atendimento.\n\nEstamos presentes em todo o território nacional, proporcionando segurança e suporte onde quer que você esteja!');
+    createButton('🔙 Voltar', showMainOptions);
+  }
+  
+  // Iniciar o chat
+  window.onload = showMainOptions;
   
