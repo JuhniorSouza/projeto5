@@ -102,3 +102,19 @@ input {
   border: 1px solid #ccc;
   border-radius: 6px;
 }
+.message {
+    background-color: #f1f0f0;
+    padding: 10px 14px;
+    border-radius: 20px;
+    margin: 8px;
+    max-width: 80%;
+    align-self: flex-start;
+    font-size: 14px;
+  }
+  
+  .user-message {
+    background-color: #DCF8C6; /* Verde claro estilo WhatsApp */
+    align-self: flex-end;
+    color: #000;
+  }
+  

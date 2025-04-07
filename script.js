@@ -1,114 +1,57 @@
-const chat = document.getElementById('chat');
-const buttons = document.getElementById('buttons');
-
-const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
-
-async function sendMessage(text, type = 'received') {
-  const msg = document.createElement('div');
-  msg.className = `message ${type}`;
-  msg.innerText = text;
-  chat.appendChild(msg);
-  chat.scrollTop = chat.scrollHeight;
-  await delay(300);
-}
-
-function clearButtons() {
-  buttons.innerHTML = '';
-}
-
-function createButton(text, onClick) {
-  const btn = document.createElement('button');
-  btn.innerText = text;
-  btn.onclick = onClick;
-  buttons.appendChild(btn);
-}
-
-async function startChat() {
-  await sendMessage('👋 Olá! Seja bem-vindo(a) à UniversoAGV, uma das 5 maiores proteções veiculares do Brasil com mais de 500 mil associados. Também somos uma das mais bem avaliadas no Reclame Aqui!');
-  showMainOptions();
-}
-
-function showMainOptions() {
-  clearButtons();
-  chat.innerHTML = '';
-  createButton('1️⃣ Fazer Cotação', showForm);
-  createButton('2️⃣ Falar com Atendente', () => {
-    window.open('https://wa.me/5538999750635', '_blank');
-  });
-  createButton('3️⃣ Saber Mais', showInfoOptions);
-}
-
-function showInfoOptions() {
-  clearButtons();
-  sendMessage('Como posso te ajudar? Escolha uma opção:');
-  createButton('📌 Como funciona uma associação?', explainAssociation);
-  createButton('🏢 Quem somos nós', showAboutUs);
-  createButton('⭐ Nosso diferencial', showDifferential);
-  createButton('📝 Nossa reputação', showReputation);
-  createButton('🔙 Voltar', showMainOptions);
-}
-
-function showForm() {
-  clearButtons();
-  chat.innerHTML = '';
-
-  const form = document.createElement('form');
-  form.innerHTML = `
-    <div class="message received">
-      <strong>📋 Preencha os dados para cotação:</strong><br/><br/>
-      <label>Nome:<br/><input type="text" name="nome" required></label><br/><br/>
-      <label>Cidade:<br/><input type="text" name="cidade" required></label><br/><br/>
-      <label>Telefone:<br/><input type="tel" name="telefone" required></label><br/><br/>
-      <label>Modelo do veículo:<br/><input type="text" name="modelo" required></label><br/><br/>
-      <label>Placa:<br/><input type="text" name="placa" required></label><br/><br/>
-      <button type="submit">📨 Enviar para o WhatsApp</button>
-    </div>
-  `;
-
-  form.onsubmit = function (e) {
-    e.preventDefault();
-    const nome = form.nome.value;
-    const cidade = form.cidade.value;
-    const telefone = form.telefone.value;
-    const modelo = form.modelo.value;
-    const placa = form.placa.value;
-
-    const msg = `Olá! Quero fazer uma cotação:\n\n📋 Nome: ${nome}\n🏙️ Cidade: ${cidade}\n📱 Telefone: ${telefone}\n🚗 Veículo: ${modelo}\n🔢 Placa: ${placa}`;
-    const encoded = encodeURIComponent(msg);
-    const url = `https://wa.me/5538999750635?text=${encoded}`;
-
-    window.open(url, '_blank');
-    chat.innerHTML = '';
-    sendMessage('✅ Seus dados foram enviados via WhatsApp!');
-    createButton('🔙 Voltar ao início', showMainOptions);
-  };
-
-  chat.appendChild(form);
-}
-
-function explainAssociation() {
-  clearButtons();
-  sendMessage('Somos uma associação que funciona por rateio. Isso significa que todos os associados dividem os custos dos eventos (como sinistros). Como temos muitos membros, o valor rateado fica muito pequeno, tornando a proteção extremamente acessível.');
-  sendMessage('✅ E o melhor: com mais de 500 mil associados, o valor na fatura acaba sendo imperceptível!');
-  createButton('🔙 Voltar', showInfoOptions);
-}
-
-function showAboutUs() {
-  clearButtons();
-  sendMessage('A UniversoAGV está há 10 anos no mercado, desde 2015, oferecendo proteção veicular em todo o Brasil.');
-  createButton('🔙 Voltar', showInfoOptions);
-}
-
-function showDifferential() {
-  clearButtons();
-  sendMessage('Nosso maior diferencial é a cobertura completa em TODO o território nacional, com uma rede de atendimento ágil e bem avaliada.');
-  createButton('🔙 Voltar', showInfoOptions);
-}
-
-function showReputation() {
-  clearButtons();
-  sendMessage('Somos uma das associações mais bem avaliadas no Reclame Aqui, com alto índice de solução e satisfação dos associados.');
-  createButton('🔙 Voltar', showInfoOptions);
-}
-
-startChat();
+function sendMessage(text, isUser = false) {
+    const chatBox = document.getElementById('chat-box');
+    const message = document.createElement('div');
+    message.classList.add('message');
+    if (isUser) {
+      message.classList.add('user-message');
+      message.innerText = text;
+      chatBox.appendChild(message);
+      chatBox.scrollTop = chatBox.scrollHeight;
+    } else {
+      const typingIndicator = document.createElement('div');
+      typingIndicator.classList.add('message');
+      typingIndicator.innerText = 'Digitando...';
+      chatBox.appendChild(typingIndicator);
+      chatBox.scrollTop = chatBox.scrollHeight;
+  
+      setTimeout(() => {
+        typingIndicator.remove();
+        message.innerText = text;
+        chatBox.appendChild(message);
+        chatBox.scrollTop = chatBox.scrollHeight;
+      }, 1500);
+    }
+  }
+  
+  function createButton(label, callback) {
+    const button = document.createElement('button');
+    button.innerText = label;
+    button.className = 'chat-button';
+    button.onclick = () => {
+      sendMessage(label, true);
+      callback();
+    };
+    document.getElementById('button-container').appendChild(button);
+  }
+  
+  function showMainOptions() {
+    clearButtons();
+    sendMessage('Olá! 👋 Bem-vindo à Universo AGV. Como podemos te ajudar hoje?');
+    createButton('1️⃣ Fazer uma simulação', showFormOptions);
+    createButton('2️⃣ Falar com um atendente', () => {
+      sendMessage('🔗 Você será redirecionado para o WhatsApp...');
+      window.open("https://wa.me/5511945731548", "_blank");
+    });
+    createButton('3️⃣ Saber Mais', showInfoOptions);
+    createButton('4️⃣ Indique e ganhe desconto', showReferralInfo);
+  }
+  
+  function showReferralInfo() {
+    clearButtons();
+    sendMessage('🎁 Indique amigos para a Universo AGV e ganhe descontos exclusivos na sua proteção veicular!');
+    sendMessage('💬 Envie o link abaixo para seus amigos e peça para mencionarem sua indicação:');
+    sendMessage('🔗 https://wa.me/5511945731548?text=Olá!%20Fui%20indicado%20por%20um%20amigo%20e%20quero%20saber%20mais%20sobre%20a%20proteção%20veicular%20da%20Universo%20AGV');
+    sendMessage('💸 A cada amigo que fechar com a AGV através do seu link, você recebe 25% de cashback na mensalidade ou adesão!');
+    createButton('🔙 Voltar', showMainOptions);
+  }
+  
